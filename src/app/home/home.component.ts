@@ -3,8 +3,8 @@ import { Component } from "@angular/core";
 
 
 @Component({
-    selector:"app-home",
-    template:"<h1>Home Page </h1>"
+    selector:"app-home", // snake or kebab casing
+    templateUrl:'./home.html'
 })
 export class HomeComponent{
 
