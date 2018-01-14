@@ -5,3 +5,10 @@
 .blue{
     color: blue;
 }
+
+.fg{
+    color:green;
+}
+.bg{
+    background-color:yellow;
+}

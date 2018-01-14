@@ -6,7 +6,37 @@ import {Component} from '@angular/core';
     selector:'app-root',
     template:`
     
-    <h1>{{firstName}}</h1>
+    
+    <h1 [ngClass] = "'cls'" *ngIf="myProp">
+    <div>
+        <div> </div>
+    </div>
+    {{firstName}}
+    </h1>
+
+    <ul>
+        <li *ngFor = "let val of arr">{{val}} </li>
+    </ul>
+
+    <table border="1">
+        <tr>
+            <td>value </td>
+            <td>index </td>
+            <td>even </td>
+            <td>odd </td>
+            <td>first </td>
+            <td>last </td>
+        </tr>
+        <tr *ngFor = "let val of arr; let idx = index; let evn = even; let odd = odd; let fst = first; let lst = last" >
+            <td>{{val}} </td>
+            <td>{{idx}} </td>
+            <td>{{evn}} </td>
+            <td>{{odd}} </td>
+            <td>{{fst}} </td>
+            <td>{{lst}} </td>
+        </tr>
+    </table>
+
     <input type="text" [(ngModel)]="firstName"/>
     
     
@@ -22,7 +52,9 @@ import {Component} from '@angular/core';
     
 
     <button [hidden]="getValue()"> click</button>
-    <button (click)="onSave(12)"> Save</button>
+    //<button (click)="onSave(12)"> Save</button><br>
+
+    <button (click)="toggle()"> Save</button>
     
 
     <select (change)="onChange()">
@@ -31,16 +63,30 @@ import {Component} from '@angular/core';
         <option> Java</option>
     </select>
 
+    <div [ngSwitch] = "priority">
+        <h1 *ngSwitchCase="'Low'">Low Priority </h1>
+        <h1 *ngSwitchCase="'Medium'">Medium Priority </h1>
+        <h1 *ngSwitchCase="'High'">High Priority </h1>
+        <h1 *ngSwitchDefault>Very Low Priority </h1>
+    </div>
     
 
     `
 
 })
 export class AppComponent{
-    myProp: string = "Angular App";
-    //firstName: string = "Kumar";
-    firstName:string = "";
+
+    
+    //myProp: string = "Angular App";
+    myProp: boolean = false;
+    //myProp: any = "abc";
+    cls = ["fg","bg"];
+    firstName: string = "Kumar";
+    //firstName:string = "";
     lastName: string = "Jogi";
+    arr:number[] = [1,2,3,4];
+    priority: string = "Low";
+
 
     getValue(){
         return "Hello World";
@@ -52,6 +98,16 @@ export class AppComponent{
 
     onSave(param){
         console.log("Saved content", param);
+    }
+
+    toggle(){
+        let x=10;
+
+        this.myProp = !this.myProp;
+        //this.myProp = this.myProp ? false : true;
+        //if(this.myProp) this.myProp = false;
+        //if(this.myProp == false) this.myProp = true;
+        //else this.myProp =  true;
     }
 
     onChange(){
