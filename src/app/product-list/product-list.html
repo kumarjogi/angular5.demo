@@ -1,0 +1,8 @@
+<h1>Products </h1>
+<div class="col-md-7">
+    <div *ngFor = "let prd of products" class="well">
+        <app-product [product]="prd"> </app-product>
+    </div>
+</div>
+
+<!-- Pipes Uppercase, Lowercase, Titlecase, Currency, Date, Json, Async -->

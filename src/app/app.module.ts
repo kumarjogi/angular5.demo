@@ -4,13 +4,13 @@ import{ BrowserModule } from "@angular/platform-browser";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
 import { AboutComponent } from './about/about.component';
+import { ProductListComponent } from "./product-list/product-list-component";
+import { ProductComponent } from './product/product.component';
 
 
 @NgModule({
     imports:[BrowserModule, FormsModule],
-    declarations:[AppComponent, HomeComponent, AboutComponent],
+    declarations:[AppComponent, HomeComponent, AboutComponent, ProductListComponent, ProductComponent],
     bootstrap:[AppComponent]
 })
-export class AppModule{
-
-}
+export class AppModule{}
