@@ -8,8 +8,8 @@ import { ProductService } from "../shared/product.service";
 export class ProductListComponent{
     products:any[];
 
-    constructor(){
-        let productSvc = new ProductService();
+    constructor(productSvc:ProductService){
+        //let productSvc = new ProductService();
         this.products = productSvc.get();
     }
 }

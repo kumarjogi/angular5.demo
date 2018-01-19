@@ -4,7 +4,12 @@ import {Component} from '@angular/core';
 // It is called decorator
 @Component({
     selector:'app-root',
-    template:` <app-product-list> </app-product-list>`
+    template:` <app-users> </app-users>`
 
 })
-export class AppComponent{}
+export class AppComponent{
+
+    constructor(){
+        var url = "https://api.github.com/users";
+    }
+}
