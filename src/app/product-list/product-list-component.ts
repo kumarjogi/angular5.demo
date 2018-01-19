@@ -10,6 +10,10 @@ export class ProductListComponent{
 
     constructor(productSvc:ProductService){
         //let productSvc = new ProductService();
-        this.products = productSvc.get();
+        productSvc.get()
+        .subscribe(
+            res => this.products = (res["data"]),
+            err => console.log(err)
+        )
     }
 }

@@ -1,15 +1,15 @@
 import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import 'rxjs/add/operator/retry';
 
 
 
 @Injectable()
 export class ProductService{
+
+    constructor(private http : HttpClient){}
     get(){
-        return [
-            {id:1, brand:"Nokia", model:"N8", price:200, inStock:true, lastUpdated:Date.now()}, 
-            {id:1, brand:"Apple", model:"IPhone 8", price:600, inStock:true, lastUpdated:Date.now()}, 
-            {id:1, brand:"Samsung", model:"S8", price:700, inStock:false, lastUpdated:Date.now()}, 
-            {id:1, brand:"Sony", model:"Xperia Z", price:800, inStock:false, lastUpdated:Date.now()}
-        ]
+        return this.http.get("https://exp-rest-api.herokuapp.com/api/products/")
+            .retry(3);
     }
 }
