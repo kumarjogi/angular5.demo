@@ -7,6 +7,8 @@ import { ProductService } from "../shared/product.service";
 })
 export class ProductListComponent{
     products:any[];
+    failed:boolean;
+    success:boolean;
     product: any={};
 
     // brand;
@@ -20,7 +22,13 @@ export class ProductListComponent{
 
         //this._productSvc = productSvc;
         //let productSvc = new ProductService();
-        productSvc.get()
+        this.get();
+    }
+
+    // Refactoring
+    get(){
+        this.product = {};
+        this.productSvc.get()
         .subscribe(
             res => this.products = (res["data"]),
             err => console.log(err)
@@ -40,10 +48,16 @@ export class ProductListComponent{
         //console.log(this.product);
 
         //this._productSvc.save(this.product)
+
+        
         this.productSvc.save(this.product)
         .subscribe(
-            ()=>console.log("Successfully Saved"),
-            ()=>console.log("Failed")
+            // ()=>console.log("Successfully Saved"),
+            ()=>{this.success = true;
+                 this.get()
+                },
+            ()=>this.failed = true
+            // ()=>console.log("Failed")
         );
     }
 }

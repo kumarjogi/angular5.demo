@@ -1,28 +1,72 @@
 
 <div class="container">
 
+    <!-- required, minlen, maxlen, pattern -->
+    <div *ngIf="failed" class="alert alert-danger">Failed to save please try again</div>
+    <div *ngIf="success" class="alert alert-success">Successfuly saved</div>
 <h1>Products </h1>
 <!-- Zen Coding -->
+<form novalidate #frm="ngForm">
+
+    <table class="table">
+        <tr>
+            <td>Field</td>
+            <td>Invalid</td>
+            <td>Valid</td>
+            <td>Dirty</td>
+            <td>Pristine</td>
+            <td>Touched</td>
+            <td>Errors</td>
+        </tr>
+        <tr>
+                <td>Model</td>
+                <td>{{model.invalid}}</td>
+                <td>{{model.valid}}</td>
+                <td>{{model.dirty}}</td>
+                <td>{{model.pristine}}</td>
+                <td>{{model.touched}}</td>
+                <td>{{model.errors | json}}</td>
+            </tr>
+    </table>
+
 <div class="row">
 <div class="col-md-5">
     <div class="form-group">
-        <input type="text" placeholder="Brand" class="form-control" [(ngModel)]="product.brand" />
+        <!-- <input type="text" placeholder="Brand" class="form-control" [(ngModel)]="product.brand" /> -->
+
+        <select required="true" #brand="ngModel" class="form-control" [(ngModel)]="product.brand" name="brand">
+            <option value="">-Select-</option>
+            <option>Apple</option>
+            <option>Samsung</option>
+            <option>Nokia</option>
+            <option>Moto</option>
+            <option>Sony</option>
+        </select>
+        <span *ngIf="brand.dirty && brand.invalid" class="text-danger">Required</span>
     </div>
     <div class="form-group">
-        <input type="text" placeholder="Model" class="form-control" [(ngModel)]="product.model"/>
+        <input minlength="3" maxlength="10" #model="ngModel" type="text" placeholder="Model" class="form-control" [(ngModel)]="product.model" name="model" required="true"/>
+        <span *ngIf="model.touched && model.errors?.required" class="text-danger">Required</span>
+        <span *ngIf="model.touched && model.errors?.minlength" class="text-danger">Min 3 Chars</span>
     </div>
     <div class="form-group">
-        <input type="text" placeholder="Price" class="form-control" [(ngModel)]="product.price"/>
+        <input #price="ngModel" type="text" required="true" placeholder="Price" pattern="[0-9]{3}"
+        class="form-control" [(ngModel)]="product.price" name="price"/>
+
+        <!-- Null Collision operator or Safe Navigation operator -->
+        <span *ngIf="price.dirty && price.errors?.required" class="text-danger">Required</span>
+        <span *ngIf="price.dirty && price.errors?.pattern" class="text-danger">Invalid Price</span>
     </div>
     <div class="form-group">
         InStock:
-        <input type="checkbox" [(ngModel)]="product.inStock"/>
+        <input type="checkbox" [(ngModel)]="product.inStock" name="inStock"/>
     </div>
     <div class="form-group">
-        <button (click)="onSave()" class="btn btn-success">Save Product</button>
+        <button [disabled]="frm.invalid" (click)="onSave()" class="btn btn-success">Save Product</button>
     </div>
 </div>
 </div>
+</form>
 <div class="col-md-7">
     <div *ngFor = "let prd of products" class="well">
         <app-product [product]="prd"> </app-product>
